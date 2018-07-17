@@ -1,0 +1,63 @@
+{
+  "project_info": {
+    "project_number": "442303310737",
+    "firebase_url": "https://madness-209405.firebaseio.com",
+    "project_id": "madness-209405",
+    "storage_bucket": "madness-209405.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:442303310737:android:0ffc64c42d8d85f0",
+        "android_client_info": {
+          "package_name": "sg.edu.np.twq2.madness"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "442303310737-1s7frmmrahlufdf0cilvf3llr113jfqr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "sg.edu.np.twq2.madness",
+            "certificate_hash": "3653ecb76e76dfc5f050be9cffce6c571b490a8c"
+          }
+        },
+        {
+          "client_id": "442303310737-q3cjal7ecqfkf98hseilohhr1l6c3bil.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "sg.edu.np.twq2.madness",
+            "certificate_hash": "0fb8f4de43dc40320851924164d2975dd2a8cd8b"
+          }
+        },
+        {
+          "client_id": "442303310737-s61f924oen76gsoh557pdrveq5vab3b9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD7RzLqhB6oh32u_xnzhOATeR6tjI0l50w"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "442303310737-s61f924oen76gsoh557pdrveq5vab3b9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
