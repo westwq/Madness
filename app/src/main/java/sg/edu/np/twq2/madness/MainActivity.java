@@ -64,8 +64,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onStart() {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        //GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
+        //FirebaseUser currentUser = mAuth.getCurrentUser();
+        GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
+        if (acct != null) {
+            String personName = acct.getDisplayName();
+            String personGivenName = acct.getGivenName();
+            String personFamilyName = acct.getFamilyName();
+            String personEmail = acct.getEmail();
+            String personId = acct.getId();
+            Uri personPhoto = acct.getPhotoUrl();
+            ((TextView)findViewById(R.id.txtLabel)).setText(personName);
+        }
         //updateUI(currentUser);
     }
     // [END on_start_check_user]
@@ -75,7 +84,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
 
-    private void signOut() {
+    public void signOut(View v) {
         // Firebase sign out
         mAuth.signOut();
 
