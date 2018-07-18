@@ -74,6 +74,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             String personId = acct.getId();
             Uri personPhoto = acct.getPhotoUrl();
             ((TextView)findViewById(R.id.txtLabel)).setText(personName);
+
+            MadConstants.acct = acct;
+            Intent in = new Intent(this, QRScannerActivity.class);
+            startActivity(in);
         }
         //updateUI(currentUser);
     }
@@ -133,6 +137,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     String personId = acct.getId();
                     Uri personPhoto = acct.getPhotoUrl();
                     ((TextView)findViewById(R.id.txtLabel)).setText(personName);
+
+                    MadConstants.acct = acct;
+                    Intent in = new Intent(this, QRScannerActivity.class);
+                    startActivity(in);
                 }
 
             } catch (ApiException e) {
