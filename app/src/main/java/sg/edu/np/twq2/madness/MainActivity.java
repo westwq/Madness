@@ -19,8 +19,13 @@ public class MainActivity extends AppCompatActivity {
 
     public void clickScan(View v)
     {
-        Intent in = new Intent(this, QRScannerActivity.class);
-        startActivityForResult(in, IntentIntegrator.REQUEST_CODE);
+        //Intent in = new Intent(this, QRScannerActivity.class);
+        //startActivityForResult(in, IntentIntegrator.REQUEST_CODE);
+        new IntentIntegrator(this)
+                .setCaptureActivity(QRScannerActivity.class)
+                .setDesiredBarcodeFormats(IntentIntegrator.QR_CODE)
+                .setPrompt("")
+                .initiateScan();
     }
 
     @Override
