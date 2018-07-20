@@ -75,7 +75,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             ((TextView)findViewById(R.id.txtLabel)).setText(personName);
 
             MadConstants.acct = acct;
-            Intent in = new Intent(this, QRScannerActivity.class);
+            Intent in = new Intent(this, MainActivity.class);
             startActivity(in);
         }
         //updateUI(currentUser);
@@ -138,7 +138,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     ((TextView)findViewById(R.id.txtLabel)).setText(personName);
 
                     MadConstants.acct = acct;
-                    Intent in = new Intent(this, QRScannerActivity.class);
+                    Intent in = new Intent(this, MainActivity.class);
                     startActivity(in);
                 }
 
