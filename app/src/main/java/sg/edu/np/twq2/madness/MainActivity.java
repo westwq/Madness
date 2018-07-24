@@ -6,15 +6,22 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
 public class MainActivity extends AppCompatActivity {
 
+    FirebaseDatabase fbDB;
+    DatabaseReference dbRef;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        fbDB = FirebaseDatabase.getInstance();
+        dbRef = fbDB.getReference();
     }
 
     public void clickScan(View v)
@@ -37,6 +44,8 @@ public class MainActivity extends AppCompatActivity {
             } else {
                 String x = result.getContents();
                 ((TextView)findViewById(R.id.txtResult)).setText(x);
+
+                dbRef.child("users").setValue(x);
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data);
