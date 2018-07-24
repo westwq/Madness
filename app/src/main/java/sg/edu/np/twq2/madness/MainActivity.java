@@ -6,22 +6,21 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
-public class MainActivity extends AppCompatActivity {
+import org.w3c.dom.Text;
 
-    FirebaseDatabase fbDB;
-    DatabaseReference dbRef;
+public class MainActivity extends AppCompatActivity implements FbDbFactory.FbDbFactoryRead {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        fbDB = FirebaseDatabase.getInstance();
-        dbRef = fbDB.getReference();
+
+        new FbDbFactory(this).readData("userGroups", MadConstants.getId(), "123", "Check123" );
     }
 
     public void clickScan(View v)
@@ -45,10 +44,24 @@ public class MainActivity extends AppCompatActivity {
                 String x = result.getContents();
                 ((TextView)findViewById(R.id.txtResult)).setText(x);
 
-                dbRef.child("users").setValue(x);
+                new FbDbFactory().writeData("userGroups", MadConstants.getId(), x, "true");
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data);
         }
+    }
+
+    @Override
+    public void readReturns(String tag, DataSnapshot dataSnapshot) {
+        if(tag.equals("Check123"))
+        {
+            String value = dataSnapshot.getValue(String.class);
+            ((TextView)findViewById(R.id.txtResult)).setText("" + value);
+        }
+    }
+
+    @Override
+    public void readFailure(String tag, DatabaseError error) {
+        //read failure
     }
 }
