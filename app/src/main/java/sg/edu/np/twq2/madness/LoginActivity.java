@@ -2,6 +2,7 @@ package sg.edu.np.twq2.madness;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -65,19 +66,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         // Check if user is signed in (non-null) and update UI accordingly.
         //FirebaseUser currentUser = mAuth.getCurrentUser();
         GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
-        if (acct != null) {
-            String personName = acct.getDisplayName();
-            String personGivenName = acct.getGivenName();
-            String personFamilyName = acct.getFamilyName();
-            String personEmail = acct.getEmail();
-            String personId = acct.getId();
-            Uri personPhoto = acct.getPhotoUrl();
-            ((TextView)findViewById(R.id.txtLabel)).setText(personName);
-
-            MadConstants.acct = acct;
-            Intent in = new Intent(this, MainActivity.class);
-            startActivity(in);
-        }
+        onLogon(acct);
         //updateUI(currentUser);
     }
     // [END on_start_check_user]
@@ -127,26 +116,36 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             try {
                 // Google Sign In was successful, authenticate with Firebase
                 GoogleSignInAccount acct = task.getResult(ApiException.class);
-                //firebaseAuthWithGoogle(account);
-                if (acct != null) {
-                    String personName = acct.getDisplayName();
-                    String personGivenName = acct.getGivenName();
-                    String personFamilyName = acct.getFamilyName();
-                    String personEmail = acct.getEmail();
-                    String personId = acct.getId();
-                    Uri personPhoto = acct.getPhotoUrl();
-                    ((TextView)findViewById(R.id.txtLabel)).setText(personName);
 
-                    MadConstants.acct = acct;
-                    Intent in = new Intent(this, MainActivity.class);
-                    startActivity(in);
-                }
+                onLogon(acct);
 
             } catch (ApiException e) {
                 // Google Sign In failed, update UI appropriately
                 Log.w(TAG, "Google sign in failed", e);
                 // ...
             }
+        }
+    }
+
+    public void onLogon(GoogleSignInAccount acct)
+    {
+        //firebaseAuthWithGoogle(account);
+        if (acct != null) {
+            String personName = acct.getDisplayName();
+            String personGivenName = acct.getGivenName();
+            String personFamilyName = acct.getFamilyName();
+            String personEmail = acct.getEmail();
+            String personId = acct.getId();
+            Uri personPhoto = acct.getPhotoUrl();
+            MadConstants.acct = acct;
+
+            ((TextView)findViewById(R.id.txtLabel)).setText(personName);
+
+            String androidId = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
+            new FbDbFactory().getDbRef().child("users").child(MadConstants.getId()).setValue(acct);
+
+            Intent in = new Intent(this, MainActivity.class);
+            startActivity(in);
         }
     }
 

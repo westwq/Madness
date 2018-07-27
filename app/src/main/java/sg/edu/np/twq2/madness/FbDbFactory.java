@@ -28,6 +28,10 @@ public class FbDbFactory {
         this.ref = ref;
     }
 
+    public DatabaseReference getDbRef() {
+        return dbRef;
+    }
+
     /**
      * Takes the parameters and chain them together
      * to reach the node before writing the data
