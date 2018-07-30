@@ -142,7 +142,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             ((TextView)findViewById(R.id.txtLabel)).setText(personName);
 
             String androidId = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
-            new FbDbFactory().getDbRef().child("users").child(MadConstants.getId()).setValue(acct);
+            FbDbFactory.writeData("users",MadConstants.getId(),"displayName",personName);
+            FbDbFactory.writeData("users",MadConstants.getId(),"givenName",personGivenName);
+            FbDbFactory.writeData("users",MadConstants.getId(),"familyName",personFamilyName);
+            FbDbFactory.writeData("users",MadConstants.getId(),"email",personEmail);
+            FbDbFactory.writeData("users",MadConstants.getId(),"id",personId);
+            FbDbFactory.writeData("users",MadConstants.getId(),"photo",personPhoto.toString());
 
             Intent in = new Intent(this, MainActivity.class);
             startActivity(in);

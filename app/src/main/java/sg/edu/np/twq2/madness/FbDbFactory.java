@@ -16,32 +16,36 @@ public class FbDbFactory {
         public void readFailure(String tag,DatabaseError error);
     }
 
-    public FbDbFactory() {
+    private void init()
+    {
         //connection to database
         fbDB = FirebaseDatabase.getInstance();
         dbRef = fbDB.getReference();
     }
+    private FbDbFactory() {
+        init();
+    }
 
-    public FbDbFactory(FbDbFactoryRead ref)
+    private FbDbFactory(FbDbFactoryRead ref)
     {
-        this();
+        init();
         this.ref = ref;
     }
 
-    public DatabaseReference getDbRef() {
-        return dbRef;
+    public static DatabaseReference getDbRef() {
+        return new FbDbFactory().dbRef;
     }
 
     /**
      * Takes the parameters and chain them together
      * to reach the node before writing the data
+     * e.g. dbRef.child("users").setValue(x);
      *
      * @param args  Array of parameters with the last as the value, and others as the child node
      */
-    public void writeData(String... args)
+    public static void writeData(String... args)
     {
-        //dbRef.child("users").setValue(x);
-        DatabaseReference tempDb = dbRef;
+        DatabaseReference tempDb = getDbRef();
         int i=0;
         for( ; i<args.length-1; i++)
         {
@@ -56,9 +60,9 @@ public class FbDbFactory {
      *
      * @param args  Array of parameters with the last as tag, and others as the child node
      */
-    public void readData(final String... args)
+    public void readData(final FbDbFactoryRead ref, final String... args)
     {
-        DatabaseReference tempDb = dbRef;
+        DatabaseReference tempDb = getDbRef();
         int i=0;
         for( ; i<args.length-1; i++)
         {

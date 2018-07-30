@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity implements FbDbFactory.FbDbF
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        new FbDbFactory(this).readData("userGroups", MadConstants.getId(), "123", "Check123" );
+        //new FbDbFactory(this).readData("userGroups", MadConstants.getId(), "123", "Check123" );
     }
 
     public void clickScan(View v)
@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity implements FbDbFactory.FbDbF
                 String x = result.getContents();
                 ((TextView)findViewById(R.id.txtResult)).setText(x);
 
-                new FbDbFactory().writeData("userGroups", MadConstants.getId(), x, "true");
+                //new FbDbFactory().writeData("userGroups", MadConstants.getId(), x, "true");
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data);
