@@ -141,13 +141,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
             ((TextView)findViewById(R.id.txtLabel)).setText(personName);
 
+            FbDbFactory.writeData("user",MadConstants.getId(),"displayName",personName);
+            FbDbFactory.writeData("user",MadConstants.getId(),"givenName",personGivenName);
+            FbDbFactory.writeData("user",MadConstants.getId(),"familyName",personFamilyName);
+            FbDbFactory.writeData("user",MadConstants.getId(),"email",personEmail);
+            FbDbFactory.writeData("user",MadConstants.getId(),"id",personId);
+            FbDbFactory.writeData("user",MadConstants.getId(),"photo",personPhoto.toString());
+
             String androidId = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
-            FbDbFactory.writeData("users",MadConstants.getId(),"displayName",personName);
-            FbDbFactory.writeData("users",MadConstants.getId(),"givenName",personGivenName);
-            FbDbFactory.writeData("users",MadConstants.getId(),"familyName",personFamilyName);
-            FbDbFactory.writeData("users",MadConstants.getId(),"email",personEmail);
-            FbDbFactory.writeData("users",MadConstants.getId(),"id",personId);
-            FbDbFactory.writeData("users",MadConstants.getId(),"photo",personPhoto.toString());
+            FbDbFactory.writeData("userDevices",MadConstants.getId(),androidId, java.util.Calendar.getInstance().getTime().toString());
 
             Intent in = new Intent(this, MainActivity.class);
             startActivity(in);
