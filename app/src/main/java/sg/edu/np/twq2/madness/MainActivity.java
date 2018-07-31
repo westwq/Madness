@@ -1,8 +1,12 @@
 package sg.edu.np.twq2.madness;
 
 import android.content.Intent;
+import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
@@ -19,6 +23,38 @@ public class MainActivity extends AppCompatActivity implements FbDbFactory.FbDbF
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        /**
+         * @see https://www.androidhive.info/2017/12/android-working-with-bottom-navigation/
+         * @see https://www.truiton.com/2017/01/android-bottom-navigation-bar-example/
+         */
+        BottomNavigationView bottomNavigationView = (BottomNavigationView)
+                findViewById(R.id.bottomNavigationView);
+
+        bottomNavigationView.setOnNavigationItemSelectedListener
+                (new BottomNavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(MenuItem item) {
+                        Fragment selectedFragment = null;
+                        switch (item.getItemId()) {
+                            case R.id.mEvents:
+                                selectedFragment = new EventFragment();
+                                break;
+                            default:
+                                selectedFragment = new GroupFragment();
+                                break;
+                        }
+                        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                        transaction.replace(R.id.frame, selectedFragment);
+                        transaction.commit();
+                        return true;
+                    }
+                });
+
+        //Manually displaying the first fragment - one time only
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.frame, new GroupFragment());
+        transaction.commit();
 
         //new FbDbFactory(this).readData("userGroups", MadConstants.getId(), "123", "Check123" );
     }

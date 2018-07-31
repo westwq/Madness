@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">Madness</string>
     <string name="web_client_id">442303310737-s61f924oen76gsoh557pdrveq5vab3b9.apps.googleusercontent.com</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
